@@ -10,3 +10,12 @@ export default {
   name: 'layout-div',
 };
 </script>
+
+
+<style scoped>
+
+
+
+
+
+</style>

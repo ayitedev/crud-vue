@@ -13,6 +13,10 @@
         <p>{{personne.nom}}</p>
         <b className="text-muted">Prénom:</b>
         <p>{{personne.prenom}}</p>
+        <b className="text-muted">Sexe:</b>
+        <p>{{personne.sexe}}</p>
+        <b className="text-muted">Profession:</b>
+        <p>{{personne.profession}}</p>
       </div>
     </div>
   </layout-div>
@@ -33,6 +37,8 @@ export default {
       personne: {
         nom: '',
         prenom: '',
+        sexe: '',
+        profession: '',
       },
       isSaving:false,
     };
@@ -44,6 +50,8 @@ export default {
           let personneInfo = response.data
           this.personne.nom = personneInfo.nom
           this.personne.prenom = personneInfo.prenom
+          this.personne.sexe = personneInfo.sexe
+          this.personne.profession = personneInfo.profession
           return response
         })
         .catch(error => {

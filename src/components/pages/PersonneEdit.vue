@@ -21,20 +21,37 @@
                 name="nom"/>
           </div>
           <div class="form-group">
-            <label htmlFor="prenom">Prénom</label>
-            <textarea
+            <label htmlFor="prenom">Prénoms</label>
+            <input
                 v-model="personne.prenom"
                 class="form-control"
                 id="prenom"
                 rows="3"
-                name="prenom"></textarea>
+                name="prenom">
+          </div>
+          <div class="form-group">
+            <label for="fruit">Sexe</label>
+            <select v-model="personne.sexe" id="sexe"  class="form-select">
+              <option v-for="sexe in sexes" :key="sexe" :value="sexe">
+                {{ sexe }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label htmlFor="profession">Profession</label>
+            <textarea
+                v-model="personne.profession"
+                class="form-control"
+                id="profession"
+                rows="3"
+                name="profession"></textarea>
           </div>
           <button
               @click="handleSave()"
               :disabled="isSaving"
               type="button"
               class="btn btn-outline-primary mt-3">
-            Enregistrer personne
+            Modifier personne
           </button>
         </form>
       </div>
@@ -57,8 +74,11 @@ export default {
       personne: {
         nom: '',
         prenom: '',
+        sexe: '',
+        profession: '',
       },
       isSaving:false,
+      sexes: ['Masculin', 'Féminin']
     };
   },
   created() {
@@ -68,6 +88,8 @@ export default {
           let personneInfo = response.data
           this.personne.nom = personneInfo.nom
           this.personne.prenom = personneInfo.prenom
+          this.personne.sexe = personneInfo.sexe
+          this.personne.profession = personneInfo.profession
           return response
         })
         .catch(error => {
@@ -93,8 +115,10 @@ export default {
               timer: 1500
             })
             this.isSaving = false
-            this.project.name = ""
-            this.project.description = ""
+            this.personne.nom = ""
+            this.personne.prenom = ""
+            this.personne.sexe = ""
+            this.personne.profession = ""
             return response
           })
           .catch(error => {

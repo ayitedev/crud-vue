@@ -17,7 +17,9 @@
             <tr>
               <th>Nom</th>
               <th>Prénoms</th>
-              <th width="240px">Action</th>
+              <th>Sexe</th>
+              <th>Profession</th>
+              <th width="240px">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -25,6 +27,8 @@
             <tr v-for="personne in personnes" :key="personne.id">
               <td>{{personne.nom}}</td>
               <td>{{personne.prenom}}</td>
+              <td>{{personne.sexe}}</td>
+              <td>{{personne.profession}}</td>
               <td>
                 <router-link :to="`/show/${personne.id}`" class="btn btn-outline-info mx-1">Détails</router-link>
                 <router-link :to="`/edit/${personne.id}`" class="btn btn-outline-success mx-1">Editer</router-link>
@@ -85,7 +89,7 @@ export default {
         confirmButtonText: 'Oui, supprimer  le!'
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete(`/api/projects/${id}`)
+          PersonneService.delete(id)
               .then( response => {
                 Swal.fire({
                   icon: 'success',
@@ -114,3 +118,22 @@ export default {
   }
 };
 </script>
+
+
+<style scoped>
+.btn {
+  padding: 5px;
+  border-radius: 5px;
+
+}
+
+.side-bar a {
+  text-decoration: none;
+  color: white;
+  margin-top: 20px;
+
+}
+
+
+
+</style>

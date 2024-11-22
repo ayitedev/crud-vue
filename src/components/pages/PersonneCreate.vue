@@ -21,19 +21,37 @@
           </div>
           <div class="form-group">
             <label htmlFor="prenom">Prénoms</label>
-            <textarea
+            <input
                 v-model="personne.prenom"
                 class="form-control"
                 id="prenom"
                 rows="3"
-                name="prenom"></textarea>
+                name="prenom">
           </div>
+          <div class="form-group">
+            <label for="fruit">Sexe</label>
+            <select v-model="personne.sexe" id="sexe"  class="form-select">
+              <option v-for="sexe in sexes" :key="sexe" :value="sexe">
+                {{ sexe }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label htmlFor="profession">Profession</label>
+            <textarea
+                v-model="personne.profession"
+                class="form-control"
+                id="profession"
+                rows="3"
+                name="profession"></textarea>
+          </div>
+
           <button
               @click="handleSave()"
               :disabled="isSaving"
               type="button"
               class="btn btn-outline-primary mt-3">
-            Enregistré
+            Enregistrer
           </button>
         </form>
       </div>
@@ -56,15 +74,21 @@ export default {
       personne: {
         nom: '',
         prenom: '',
+        profession: '',
+        sexe: '',
       },
       isSaving:false,
+      sexes: ['Masculin', 'Féminin']
+
     };
   },
   methods: {
     handleSave() {
       var personne = {
         nom: this.personne.nom,
-        prenom: this.personne.prenom
+        prenom: this.personne.prenom,
+        sexe: this.personne.sexe,
+        profession: this.personne.profession
       };
       this.isSaving = true
       PersonneService.create(personne)
@@ -78,6 +102,8 @@ export default {
             this.isSaving = false
             this.personne.nom = ""
             this.personne.prenom = ""
+            this.personne.sexe = ""
+            this.personne.profession = ""
             return response
           })
           .catch(error => {
